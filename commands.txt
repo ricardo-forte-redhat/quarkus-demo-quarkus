@@ -2,7 +2,7 @@
 mvn io.quarkus:quarkus-maven-plugin:0.21.1:create \
     -DprojectGroupId=com.redhat.demo.serasa \
     -DprojectArtifactId=quarkus \
-    -DclassName="com.redhat.demo.serasa.GreetingResource" \
+    -DclassName="com.redhat.demo.GreetingController" \
     -Dpath="/hello" \
     -Dextensions="resteasy-jsonb"
 
