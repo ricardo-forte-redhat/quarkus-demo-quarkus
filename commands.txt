@@ -1,33 +1,13 @@
->> Create project
-mvn io.quarkus:quarkus-maven-plugin:0.21.1:create \
-    -DprojectGroupId=com.redhat.demo.serasa \
-    -DprojectArtifactId=quarkus \
-    -DclassName="com.redhat.demo.GreetingController" \
-    -Dpath="/hello" \
-    -Dextensions="resteasy-jsonb"
-
-cd ~/Work/Projects/Red\ Hat/Serasa/demo-quarkus/quarkus/
+cd ~/Work/Projects/RedHat/quarkus/quarkus-demo-quarkus
     
 >> Run dev mode - hot deploy
-./mvnw clean compile quarkus:dev
+mvn clean compile quarkus:dev
 
-http://localhost:8080/hello
-http://localhost:8080/hello/serverinfo
-
->> Extensions
-mvn quarkus:list-extensions
-
-./mvnw quarkus:add-extension -Dextensions="smallrye-openapi"
-curl http://localhost:8080/openapi
-http://localhost:8080/swagger-ui
-
-./mvnw quarkus:add-extension -Dextensions="smallrye-health"
-http://localhost:8080/health
-
-https://quarkus.io/extensions/
+http://localhost:8080/quarkus
+http://localhost:8080/quarkus/greeting/forte
 
 >> Build + Run
-./mvnw package -DskipTests
+mvn package -DskipTests
 java -jar target/quarkus-1.0-SNAPSHOT-runner.jar
 
 >> Compare
@@ -40,35 +20,15 @@ ps -o pid,rss -p PID
 
 
 
->> Thorntail
-cd ~/Work/Projects/Red\ Hat/Serasa/demo-quarkus/thorntail/
-
->> Build + Run + Test
-mvn clean install
-java -jar target/thorntail-1.0-SNAPSHOT-thorntail.jar
-
-http://localhost:8080/api/hello
-http://localhost:8080/api/hello/serverinfo
-
->> Compare
-ps -o pid,rss -p PID
-
-
-
-
-
-
-
-
 >> SpringBoot
-cd ~/Work/Projects/Red\ Hat/Serasa/demo-quarkus/spring-boot/
+cd ~/Work/Projects/RedHat/quarkus/quarkus-demo-springboot/
 
 >> Build + Run + Test
 mvn clean install
 java -jar target/spring-boot-1.0-SNAPSHOT.jar
 
-http://localhost:8080/api/hello
-http://localhost:8080/api/hello/serverinfo
+http://localhost:8080/springboot
+http://localhost:8080/springboot/greeting/forte
 
 >> Compare
 ps -o pid,rss -p PID
@@ -80,8 +40,13 @@ ps -o pid,rss -p PID
 
 
 >> Build + Run Native
-./mvnw package -Pnative -DskipTests
+cd ~/Work/Projects/RedHat/quarkus/quarkus-demo-quarkus
+
+mvn package -Pnative -DskipTests
 ./target/quarkus-1.0-SNAPSHOT-runner
+
+http://localhost:8080/quarkus
+http://localhost:8080/quarkus/greeting/forte
 
 >> Compare
 ps -o pid,rss -p PID

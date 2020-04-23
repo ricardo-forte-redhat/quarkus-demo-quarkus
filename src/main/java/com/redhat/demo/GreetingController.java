@@ -1,30 +1,33 @@
 package com.redhat.demo;
 
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
+
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 @Path( "/quarkus" )
 public class GreetingController {
 
-    @Inject
-    GreetingService greetingService;
+    private final GreetingService service;
 
-    @GET
-    @Produces( MediaType.TEXT_PLAIN )
-    @Path( "/hello" )
-    public String hello() {
-        return this.greetingService.greeting("quarkus" );
+    @Inject
+    public GreetingController(GreetingService service) {
+        this.service = service;
     }
 
     @GET
     @Produces( MediaType.TEXT_PLAIN )
-    @Path( "/serverinfo" )
-    public String serverInfo( @Context HttpServletRequest req ) {
-        return "Hello from quarkus running at: " + req.getServerName();
+    @Path( "/greeting/{name}" )
+    public String greeting( @PathParam String name ) {
+        return service.greeting(name);
+    }
+
+    @GET
+    @Produces( MediaType.TEXT_PLAIN )
+    public String hello() {
+        return "hello from quarkus";
     }
 }
